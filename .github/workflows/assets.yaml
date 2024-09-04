@@ -14,7 +14,7 @@ jobs:
         run: |
           ./.github/scripts/get-k3d-binary.sh
       - name: ✍🏻 Create PR
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v7
         with:
           commit-message: Update K3d binary
           title: Update K3d binary
