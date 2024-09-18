@@ -18,16 +18,19 @@ public class CreateClusterAsyncTests
 
     // Act
     int createExitCode = await K3d.CreateClusterAsync(clusterName, configPath, CancellationToken.None);
-    var (listExitCode, result) = await K3d.ListClustersAsync(CancellationToken.None);
+    var (listExitCode, listResult) = await K3d.ListClustersAsync(CancellationToken.None);
+    var (getExitCode, getResult) = await K3d.GetClusterAsync(clusterName, CancellationToken.None);
     int stopExitCode = await K3d.StopClusterAsync(clusterName, CancellationToken.None);
     int startExitCode = await K3d.StartClusterAsync(clusterName, CancellationToken.None);
 
     // Assert
     Assert.Equal(0, createExitCode);
     Assert.Equal(0, listExitCode);
+    Assert.Equal(0, getExitCode);
     Assert.Equal(0, stopExitCode);
     Assert.Equal(0, startExitCode);
-    _ = await Verify(result);
+    Assert.True(getResult);
+    _ = await Verify(listResult);
 
     // Cleanup
     _ = await K3d.DeleteClusterAsync(clusterName, CancellationToken.None);
