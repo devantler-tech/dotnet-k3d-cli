@@ -4,21 +4,6 @@
 [![Test](https://github.com/devantler/dotnet-k3d-cli/actions/workflows/test.yaml/badge.svg)](https://github.com/devantler/dotnet-k3d-cli/actions/workflows/test.yaml)
 [![codecov](https://codecov.io/gh/devantler/dotnet-k3d-cli/graph/badge.svg?token=RhQPb4fE7z)](https://codecov.io/gh/devantler/dotnet-k3d-cli)
 
-<!-- readme-tree start -->
-
-```
-.
-├── .github
-│   ├── scripts
-│   └── workflows
-├── src
-└── tests
-
-5 directories
-```
-
-<!-- readme-tree end -->
-
 <details>
   <summary>Show/hide folder structure</summary>
 
