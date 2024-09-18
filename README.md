@@ -8,13 +8,12 @@
   <summary>Show/hide folder structure</summary>
 
 <!-- readme-tree start -->
-
 ```
 .
 ├── .github
 │   ├── scripts
 │   └── workflows
-├── Devantler.AgeCLI
+├── Devantler.K3dCLI
 │   └── runtimes
 │       ├── linux-arm64
 │       │   └── native
@@ -26,12 +25,12 @@
 │       │   └── native
 │       └── win-x64
 │           └── native
-└── Devantler.AgeCLI.Tests
-    └── AgeKeygenTests
+└── Devantler.K3dCLI.Tests
+    ├── K3dTests
+    └── assets
 
-17 directories
+18 directories
 ```
-
 <!-- readme-tree end -->
 
 </details>
