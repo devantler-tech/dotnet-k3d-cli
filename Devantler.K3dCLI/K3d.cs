@@ -1,5 +1,6 @@
 using System.Runtime.InteropServices;
 using CliWrap;
+using CliWrap.Exceptions;
 using Devantler.CLIRunner;
 
 namespace Devantler.K3dCLI;
@@ -42,7 +43,7 @@ public static class K3d
   /// <param name="configPath"></param>
   /// <param name="cancellationToken"></param>
   /// <returns></returns>
-  public static async Task<int> CreateClusterAsync(string clusterName, string configPath, CancellationToken cancellationToken)
+  public static async Task CreateClusterAsync(string clusterName, string configPath, CancellationToken cancellationToken)
   {
     var cmd = Command.WithArguments(
         [
@@ -52,8 +53,18 @@ public static class K3d
           $"--config={configPath}"
         ]
       );
-    var (exitCode, _) = await CLI.RunAsync(cmd, cancellationToken: cancellationToken).ConfigureAwait(false);
-    return exitCode;
+    try
+    {
+      var (exitCode, _) = await CLI.RunAsync(cmd, cancellationToken: cancellationToken).ConfigureAwait(false);
+      if (exitCode != 0)
+      {
+        throw new K3dException($"Failed to create k3d cluster. Exit code: {exitCode}");
+      }
+    }
+    catch (CommandExecutionException ex)
+    {
+      throw new K3dException("Failed to create k3d cluster.", ex);
+    }
   }
 
   /// <summary>
@@ -62,11 +73,21 @@ public static class K3d
   /// <param name="clusterName"></param>
   /// <param name="cancellationToken"></param>
   /// <returns></returns>
-  public static async Task<int> StartClusterAsync(string clusterName, CancellationToken cancellationToken)
+  public static async Task StartClusterAsync(string clusterName, CancellationToken cancellationToken)
   {
     var cmd = Command.WithArguments($"cluster start {clusterName}");
-    var (exitCode, _) = await CLI.RunAsync(cmd, cancellationToken: cancellationToken).ConfigureAwait(false);
-    return exitCode;
+    try
+    {
+      var (exitCode, _) = await CLI.RunAsync(cmd, cancellationToken: cancellationToken).ConfigureAwait(false);
+      if (exitCode != 0)
+      {
+        throw new K3dException($"Failed to start k3d cluster. Exit code: {exitCode}");
+      }
+    }
+    catch (CommandExecutionException ex)
+    {
+      throw new K3dException("Failed to start k3d cluster.", ex);
+    }
   }
 
   /// <summary>
@@ -75,11 +96,21 @@ public static class K3d
   /// <param name="clusterName"></param>
   /// <param name="cancellationToken"></param>
   /// <returns></returns>
-  public static async Task<int> StopClusterAsync(string clusterName, CancellationToken cancellationToken)
+  public static async Task StopClusterAsync(string clusterName, CancellationToken cancellationToken)
   {
     var cmd = Command.WithArguments($"cluster stop {clusterName}");
-    var (exitCode, _) = await CLI.RunAsync(cmd, cancellationToken: cancellationToken).ConfigureAwait(false);
-    return exitCode;
+    try
+    {
+      var (exitCode, _) = await CLI.RunAsync(cmd, cancellationToken: cancellationToken).ConfigureAwait(false);
+      if (exitCode != 0)
+      {
+        throw new K3dException($"Failed to stop k3d cluster. Exit code: {exitCode}");
+      }
+    }
+    catch (CommandExecutionException ex)
+    {
+      throw new K3dException("Failed to stop k3d cluster.", ex);
+    }
   }
 
   /// <summary>
@@ -88,11 +119,21 @@ public static class K3d
   /// <param name="clusterName"></param>
   /// <param name="cancellationToken"></param>
   /// <returns></returns>
-  public static async Task<int> DeleteClusterAsync(string clusterName, CancellationToken cancellationToken)
+  public static async Task DeleteClusterAsync(string clusterName, CancellationToken cancellationToken)
   {
     var cmd = Command.WithArguments($"cluster delete {clusterName}");
-    var (exitCode, _) = await CLI.RunAsync(cmd, cancellationToken: cancellationToken).ConfigureAwait(false);
-    return exitCode;
+    try
+    {
+      var (exitCode, _) = await CLI.RunAsync(cmd, cancellationToken: cancellationToken).ConfigureAwait(false);
+      if (exitCode != 0)
+      {
+        throw new K3dException($"Failed to delete k3d cluster. Exit code: {exitCode}");
+      }
+    }
+    catch (CommandExecutionException ex)
+    {
+      throw new K3dException("Failed to delete k3d cluster.", ex);
+    }
   }
 
   /// <summary>
@@ -101,11 +142,18 @@ public static class K3d
   /// <param name="clusterName"></param>
   /// <param name="cancellationToken"></param>
   /// <returns></returns>
-  public static async Task<(int exitCode, bool Result)> GetClusterAsync(string clusterName, CancellationToken cancellationToken)
+  public static async Task<bool> GetClusterAsync(string clusterName, CancellationToken cancellationToken)
   {
     var cmd = Command.WithArguments($"cluster get {clusterName}").WithValidation(CommandResultValidation.None);
-    var (exitCode, _) = await CLI.RunAsync(cmd, cancellationToken: cancellationToken).ConfigureAwait(false);
-    return (exitCode, exitCode == 0);
+    try
+    {
+      var (exitCode, _) = await CLI.RunAsync(cmd, cancellationToken: cancellationToken).ConfigureAwait(false);
+      return exitCode == 0;
+    }
+    catch (CommandExecutionException ex)
+    {
+      throw new K3dException("Failed to get k3d cluster.", ex);
+    }
   }
 
   /// <summary>
@@ -116,7 +164,13 @@ public static class K3d
   public static async Task<(int exitCode, string result)> ListClustersAsync(CancellationToken cancellationToken)
   {
     var cmd = Command.WithArguments("cluster list");
-    var (exitCode, result) = await CLI.RunAsync(cmd, cancellationToken: cancellationToken).ConfigureAwait(false);
-    return (exitCode, result);
+    try
+    {
+      return await CLI.RunAsync(cmd, cancellationToken: cancellationToken).ConfigureAwait(false);
+    }
+    catch (CommandExecutionException ex)
+    {
+      throw new K3dException("Failed to list k3d clusters.", ex);
+    }
   }
 }
