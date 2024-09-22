@@ -14,7 +14,7 @@ public class AllMethodsTests
   {
     // Arrange
     string clusterName = "test-cluster";
-    string configPath = $"{AppContext.BaseDirectory}assets/k3d-config.yaml";
+    string configPath = Path.Combine(AppContext.BaseDirectory, "assets/k3d-config.yaml");
 
     // Act
     var createClusterException = await Record.ExceptionAsync(async () => await K3d.CreateClusterAsync(clusterName, configPath, CancellationToken.None).ConfigureAwait(false));
@@ -44,7 +44,7 @@ public class AllMethodsTests
   {
     // Arrange
     string clusterName = "test-cluster";
-    string configPath = $"{AppContext.BaseDirectory}assets/invalid-config.yaml";
+    string configPath = Path.Combine(AppContext.BaseDirectory, "assets/invalid-config.yaml");
 
     // Act
     var createClusterException = await Record.ExceptionAsync(async () => await K3d.CreateClusterAsync(clusterName, configPath, CancellationToken.None).ConfigureAwait(false));
