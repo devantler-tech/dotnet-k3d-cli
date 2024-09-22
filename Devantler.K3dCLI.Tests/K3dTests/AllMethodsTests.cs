@@ -1,16 +1,16 @@
 namespace Devantler.K3dCLI.Tests.K3dTests;
 
 /// <summary>
-/// Tests for the <see cref="K3d.CreateClusterAsync(string, string, CancellationToken)"/> method.
+/// Tests for all methods in the <see cref="K3d"/> class.
 /// </summary>
-public class CreateClusterAsyncTests
+public class AllMethodsTests
 {
   /// <summary>
-  /// Test to verify that the method returns a zero exit code when valid parameters are passed.
+  /// Test to verify that all methods in the <see cref="K3d"/> class work as expected.
   /// </summary>
   /// <returns></returns>
   [Fact]
-  public async Task CreateClusterAsync_ValidParameters_ReturnsZeroExitCode()
+  public async Task AllMethods_WithValidParameters_Succeeds()
   {
     // Arrange
     string clusterName = "test-cluster";
@@ -19,7 +19,7 @@ public class CreateClusterAsyncTests
     // Act
     var createClusterException = await Record.ExceptionAsync(async () => await K3d.CreateClusterAsync(clusterName, configPath, CancellationToken.None).ConfigureAwait(false));
     string[] clusters = await K3d.ListClustersAsync(CancellationToken.None);
-    bool clusterExists = clusters.Contains(clusterName);
+    bool clusterExists = await K3d.GetClusterAsync(clusterName, CancellationToken.None);
     var stopClusterException = await Record.ExceptionAsync(async () => await K3d.StopClusterAsync(clusterName, CancellationToken.None).ConfigureAwait(false));
     var startClusterException = await Record.ExceptionAsync(async () => await K3d.StartClusterAsync(clusterName, CancellationToken.None).ConfigureAwait(false));
 
@@ -36,11 +36,11 @@ public class CreateClusterAsyncTests
   }
 
   /// <summary>
-  /// Test to verify that the method throws an exception when invalid parameters are passed.
+  /// Test to verify that all methods in the <see cref="K3d"/> class fail as expected.
   /// </summary>
   /// <returns></returns>
   [Fact]
-  public async Task CreateClusterAsync_InvalidParameters_ReturnsNonZeroExitCode()
+  public async Task WithInvalidParameters_Fails()
   {
     // Arrange
     string clusterName = "test-cluster";
