@@ -17,23 +17,22 @@ public class CreateClusterAsyncTests
     string configPath = $"{AppContext.BaseDirectory}assets/k3d-config.yaml";
 
     // Act
-    int createExitCode = await K3d.CreateClusterAsync(clusterName, configPath, CancellationToken.None);
-    var (listExitCode, listResult) = await K3d.ListClustersAsync(CancellationToken.None);
-    var (getExitCode, getResult) = await K3d.GetClusterAsync(clusterName, CancellationToken.None);
-    int stopExitCode = await K3d.StopClusterAsync(clusterName, CancellationToken.None);
-    int startExitCode = await K3d.StartClusterAsync(clusterName, CancellationToken.None);
+    var createClusterException = await Record.ExceptionAsync(async () => await K3d.CreateClusterAsync(clusterName, configPath, CancellationToken.None).ConfigureAwait(false));
+    string[] clusters = await K3d.ListClustersAsync(CancellationToken.None);
+    bool clusterExists = clusters.Contains(clusterName);
+    var stopClusterException = await Record.ExceptionAsync(async () => await K3d.StopClusterAsync(clusterName, CancellationToken.None).ConfigureAwait(false));
+    var startClusterException = await Record.ExceptionAsync(async () => await K3d.StartClusterAsync(clusterName, CancellationToken.None).ConfigureAwait(false));
 
     // Assert
-    Assert.Equal(0, createExitCode);
-    Assert.Equal(0, listExitCode);
-    Assert.Equal(0, getExitCode);
-    Assert.Equal(0, stopExitCode);
-    Assert.Equal(0, startExitCode);
-    Assert.True(getResult);
-    _ = await Verify(listResult);
+    Assert.Null(createClusterException);
+    string expectedClusterName = Assert.Single(clusters);
+    Assert.Equal(clusterName, expectedClusterName);
+    Assert.True(clusterExists);
+    Assert.Null(stopClusterException);
+    Assert.Null(startClusterException);
 
     // Cleanup
-    _ = await K3d.DeleteClusterAsync(clusterName, CancellationToken.None);
+    await K3d.DeleteClusterAsync(clusterName, CancellationToken.None);
   }
 
   /// <summary>
@@ -48,9 +47,9 @@ public class CreateClusterAsyncTests
     string configPath = $"{AppContext.BaseDirectory}assets/invalid-config.yaml";
 
     // Act
-    int exitCode = await K3d.CreateClusterAsync(clusterName, configPath, CancellationToken.None);
+    var createClusterException = await Record.ExceptionAsync(async () => await K3d.CreateClusterAsync(clusterName, configPath, CancellationToken.None).ConfigureAwait(false));
 
     // Assert
-    Assert.NotEqual(0, exitCode);
+    Assert.NotNull(createClusterException);
   }
 }

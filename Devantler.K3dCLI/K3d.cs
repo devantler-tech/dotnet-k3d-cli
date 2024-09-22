@@ -161,12 +161,16 @@ public static class K3d
   /// </summary>
   /// <param name="cancellationToken"></param>
   /// <returns></returns>
-  public static async Task<(int exitCode, string result)> ListClustersAsync(CancellationToken cancellationToken)
+  public static async Task<string[]> ListClustersAsync(CancellationToken cancellationToken)
   {
     var cmd = Command.WithArguments("cluster list");
     try
     {
-      return await CLI.RunAsync(cmd, cancellationToken: cancellationToken).ConfigureAwait(false);
+      var (_, result) = await CLI.RunAsync(cmd, cancellationToken: cancellationToken).ConfigureAwait(false);
+      string[] lines = result.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+      string[] clusterLines = lines.Skip(1).ToArray();
+      string[] clusterNames = clusterLines.Select(line => line.Split(' ', StringSplitOptions.RemoveEmptyEntries).First()).ToArray();
+      return clusterNames;
     }
     catch (CommandExecutionException ex)
     {
