@@ -41,4 +41,4 @@ get "https://getbin.io/k3d-io/k3d?os=darwin&arch=amd64" "k3d" "Devantler.K3dCLI/
 get "https://getbin.io/k3d-io/k3d?os=darwin&arch=arm64" "k3d" "Devantler.K3dCLI/runtimes/osx-arm64/native" "k3d-osx-arm64" false
 get "https://getbin.io/k3d-io/k3d?os=linux&arch=amd64" "k3d" "Devantler.K3dCLI/runtimes/linux-x64/native" "k3d-linux-x64" false
 get "https://getbin.io/k3d-io/k3d?os=linux&arch=arm64" "k3d" "Devantler.K3dCLI/runtimes/linux-arm64/native" "k3d-linux-arm64" false
-curl -s "https://api.github.com/repos/k3d-io/k3d/releases" | grep "browser_download.*windows-amd64.exe" | cut -d '"' -f 4 | sort -V | tail -n 1 | xargs curl -LJ -o Devantler.K3dCLI/runtimes/win-x64/native/k3d-win-x64.exe
+get "https://getbin.io/k3d-io/k3d?os=windows&arch=amd64" "k3d.exe" "Devantler.K3dCLI/runtimes/win-x64/native" "k3d-win-x64.exe" false
