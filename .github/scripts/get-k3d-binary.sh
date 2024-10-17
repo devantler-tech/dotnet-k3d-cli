@@ -6,13 +6,18 @@ get() {
   local binary=$2
   local target_dir=$3
   local target_name=$4
-  local isTar=$5
+  local archiveType=$5
 
   echo "Downloading $target_name from $url"
-  if [ "$isTar" = true ]; then
+  if [ "$archiveType" = "tar" ]; then
     curl -LJ "$url" | tar xvz -C "$target_dir" "$binary"
     mv "$target_dir/$binary" "${target_dir}/$target_name"
-  elif [ "$isTar" = false ]; then
+  elif [ "$archiveType" = "zip" ]; then
+    curl -LJ "$url" -o "$target_dir/$target_name.zip"
+    unzip "$target_dir/$target_name.zip" -d "$target_dir"
+    mv "$target_dir/$binary" "${target_dir}/$target_name"
+    rm "$target_dir/$target_name.zip"
+  elif [ "$archiveType" = false ]; then
     curl -LJ "$url" -o "$target_dir/$target_name"
   fi
   chmod +x "$target_dir/$target_name"
