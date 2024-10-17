@@ -8,26 +8,7 @@ get() {
   local target_name=$4
   local isTar=$5
 
-  # check if tar
-  if [ "$isTar" = true ]; then
-    curl -LJ "$url" | tar xvz -C "$target_dir" "$binary"
-    mv "$target_dir/$binary" "${target_dir}/$target_name"
-  elif [ "$isTar" = false ]; then
-    curl -LJ "$url" -o "$target_dir/$target_name"
-  fi
-  chmod +x "$target_dir/$target_name"
-}
-
-#!/bin/bash
-set -e
-
-get() {
-  local url=$1
-  local binary=$2
-  local target_dir=$3
-  local target_name=$4
-  local isTar=$5
-
+  echo "Downloading $target_name from $url"
   if [ "$isTar" = true ]; then
     curl -LJ "$url" | tar xvz -C "$target_dir" "$binary"
     mv "$target_dir/$binary" "${target_dir}/$target_name"
