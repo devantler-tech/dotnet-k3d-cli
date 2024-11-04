@@ -43,7 +43,7 @@ public static class K3d
   /// <param name="configPath"></param>
   /// <param name="cancellationToken"></param>
   /// <returns></returns>
-  public static async Task CreateClusterAsync(string clusterName, string configPath, CancellationToken cancellationToken)
+  public static async Task CreateClusterAsync(string clusterName, string configPath, CancellationToken cancellationToken = default)
   {
     var cmd = Command.WithArguments(
         [
@@ -73,7 +73,7 @@ public static class K3d
   /// <param name="clusterName"></param>
   /// <param name="cancellationToken"></param>
   /// <returns></returns>
-  public static async Task StartClusterAsync(string clusterName, CancellationToken cancellationToken)
+  public static async Task StartClusterAsync(string clusterName, CancellationToken cancellationToken = default)
   {
     var cmd = Command.WithArguments($"cluster start {clusterName}");
     try
@@ -96,7 +96,7 @@ public static class K3d
   /// <param name="clusterName"></param>
   /// <param name="cancellationToken"></param>
   /// <returns></returns>
-  public static async Task StopClusterAsync(string clusterName, CancellationToken cancellationToken)
+  public static async Task StopClusterAsync(string clusterName, CancellationToken cancellationToken = default)
   {
     var cmd = Command.WithArguments($"cluster stop {clusterName}");
     try
@@ -119,7 +119,7 @@ public static class K3d
   /// <param name="clusterName"></param>
   /// <param name="cancellationToken"></param>
   /// <returns></returns>
-  public static async Task DeleteClusterAsync(string clusterName, CancellationToken cancellationToken)
+  public static async Task DeleteClusterAsync(string clusterName, CancellationToken cancellationToken = default)
   {
     var cmd = Command.WithArguments($"cluster delete {clusterName}");
     try
@@ -142,7 +142,7 @@ public static class K3d
   /// <param name="clusterName"></param>
   /// <param name="cancellationToken"></param>
   /// <returns></returns>
-  public static async Task<bool> GetClusterAsync(string clusterName, CancellationToken cancellationToken)
+  public static async Task<bool> GetClusterAsync(string clusterName, CancellationToken cancellationToken = default)
   {
     var cmd = Command.WithArguments($"cluster get {clusterName}").WithValidation(CommandResultValidation.None);
     try
@@ -161,7 +161,7 @@ public static class K3d
   /// </summary>
   /// <param name="cancellationToken"></param>
   /// <returns></returns>
-  public static async Task<string[]> ListClustersAsync(CancellationToken cancellationToken)
+  public static async Task<string[]> ListClustersAsync(CancellationToken cancellationToken = default)
   {
     var cmd = Command.WithArguments("cluster list");
     try
