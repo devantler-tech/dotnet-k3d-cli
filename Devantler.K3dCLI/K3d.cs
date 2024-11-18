@@ -58,7 +58,7 @@ public static class K3d
       var (exitCode, _) = await CLI.RunAsync(cmd, cancellationToken: cancellationToken).ConfigureAwait(false);
       if (exitCode != 0)
       {
-        throw new K3dException($"Failed to create k3d cluster. Exit code: {exitCode}");
+        throw new K3dException($"Failed to create k3d cluster.");
       }
     }
     catch (CommandExecutionException ex)
@@ -81,7 +81,7 @@ public static class K3d
       var (exitCode, _) = await CLI.RunAsync(cmd, cancellationToken: cancellationToken).ConfigureAwait(false);
       if (exitCode != 0)
       {
-        throw new K3dException($"Failed to start k3d cluster. Exit code: {exitCode}");
+        throw new K3dException($"Failed to start k3d cluster.");
       }
     }
     catch (CommandExecutionException ex)
@@ -104,7 +104,7 @@ public static class K3d
       var (exitCode, _) = await CLI.RunAsync(cmd, cancellationToken: cancellationToken).ConfigureAwait(false);
       if (exitCode != 0)
       {
-        throw new K3dException($"Failed to stop k3d cluster. Exit code: {exitCode}");
+        throw new K3dException($"Failed to stop k3d cluster.");
       }
     }
     catch (CommandExecutionException ex)
@@ -127,7 +127,7 @@ public static class K3d
       var (exitCode, _) = await CLI.RunAsync(cmd, cancellationToken: cancellationToken).ConfigureAwait(false);
       if (exitCode != 0)
       {
-        throw new K3dException($"Failed to delete k3d cluster. Exit code: {exitCode}");
+        throw new K3dException($"Failed to delete k3d cluster.");
       }
     }
     catch (CommandExecutionException ex)
