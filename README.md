@@ -8,6 +8,7 @@
   <summary>Show/hide folder structure</summary>
 
 <!-- readme-tree start -->
+
 ```
 .
 ├── .github
@@ -31,6 +32,7 @@
 
 18 directories
 ```
+
 <!-- readme-tree end -->
 
 </details>
@@ -52,18 +54,5 @@ You can execute the K3d CLI commands using the `K3d` class.
 ```csharp
 using Devantler.K3dCLI;
 
-// Create a new K3d cluster
-_ = await K3d.CreateClusterAsync("my-cluster", "path/to/k3d-config.yaml", cancellationToken);
-
-// List all K3d clusters
-_ = await K3d.ListClustersAsync(cancellationToken);
-
-// Stop a K3d cluster
-_ = await K3d.StopClusterAsync("my-cluster", cancellationToken);
-
-// Start a K3d cluster
-_ = await K3d.StartClusterAsync("my-cluster", cancellationToken);
-
-// Delete a K3d cluster
-_ = await K3d.DeleteClusterAsync("my-cluster", cancellationToken);
+var (exitCode, message) = await K3d.RunAsync(["arg1", "arg2"]);
 ```

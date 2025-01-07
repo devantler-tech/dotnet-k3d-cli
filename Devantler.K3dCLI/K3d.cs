@@ -37,12 +37,36 @@ public static class K3d
   }
 
   /// <summary>
+  /// Runs the k3d CLI command with the given arguments.
+  /// </summary>
+  /// <param name="arguments"></param>
+  /// <param name="validation"></param>
+  /// <param name="silent"></param>
+  /// <param name="includeStdErr"></param>
+  /// <param name="cancellationToken"></param>
+  /// <returns></returns>
+  public static async Task<(int ExitCode, string Message)> RunAsync(
+    string[] arguments,
+    CommandResultValidation validation = CommandResultValidation.ZeroExitCode,
+    bool silent = false,
+    bool includeStdErr = true,
+    CancellationToken cancellationToken = default)
+  {
+    return await CLI.RunAsync(
+      Command.WithArguments(arguments),
+      validation: validation,
+      silent: silent,
+      includeStdErr: includeStdErr,
+      cancellationToken: cancellationToken).ConfigureAwait(false);
+  }
+
+  /// <summary>
   /// Creates a new k3d cluster.
   /// </summary>
   /// <param name="clusterName"></param>
   /// <param name="configPath"></param>
   /// <param name="cancellationToken"></param>
-  /// <returns></returns>
+  [Obsolete("This method is obsolete. Use RunAsync instead.")]
   public static async Task CreateClusterAsync(string clusterName, string configPath, CancellationToken cancellationToken = default)
   {
     var cmd = Command.WithArguments(
@@ -72,7 +96,7 @@ public static class K3d
   /// </summary>
   /// <param name="clusterName"></param>
   /// <param name="cancellationToken"></param>
-  /// <returns></returns>
+  [Obsolete("This method is obsolete. Use RunAsync instead.")]
   public static async Task StartClusterAsync(string clusterName, CancellationToken cancellationToken = default)
   {
     var cmd = Command.WithArguments($"cluster start {clusterName}");
@@ -95,7 +119,7 @@ public static class K3d
   /// </summary>
   /// <param name="clusterName"></param>
   /// <param name="cancellationToken"></param>
-  /// <returns></returns>
+  [Obsolete("This method is obsolete. Use RunAsync instead.")]
   public static async Task StopClusterAsync(string clusterName, CancellationToken cancellationToken = default)
   {
     var cmd = Command.WithArguments($"cluster stop {clusterName}");
@@ -118,7 +142,7 @@ public static class K3d
   /// </summary>
   /// <param name="clusterName"></param>
   /// <param name="cancellationToken"></param>
-  /// <returns></returns>
+  [Obsolete("This method is obsolete. Use RunAsync instead.")]
   public static async Task DeleteClusterAsync(string clusterName, CancellationToken cancellationToken = default)
   {
     var cmd = Command.WithArguments($"cluster delete {clusterName}");
@@ -141,7 +165,7 @@ public static class K3d
   /// </summary>
   /// <param name="clusterName"></param>
   /// <param name="cancellationToken"></param>
-  /// <returns></returns>
+  [Obsolete("This method is obsolete. Use RunAsync instead.")]
   public static async Task<bool> GetClusterAsync(string clusterName, CancellationToken cancellationToken = default)
   {
     var cmd = Command.WithArguments($"cluster get {clusterName}").WithValidation(CommandResultValidation.None);
@@ -160,7 +184,7 @@ public static class K3d
   /// Lists all k3d clusters.
   /// </summary>
   /// <param name="cancellationToken"></param>
-  /// <returns></returns>
+  [Obsolete("This method is obsolete. Use RunAsync instead.")]
   public static async Task<string[]> ListClustersAsync(CancellationToken cancellationToken = default)
   {
     var cmd = Command.WithArguments("cluster list");

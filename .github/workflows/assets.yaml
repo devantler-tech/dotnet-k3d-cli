@@ -19,13 +19,17 @@ jobs:
         with:
           app_id: ${{ secrets.APP_ID }}
           private_key: ${{ secrets.APP_PRIVATE_KEY }}
+      - name: 🎯 Get version
+        run: |
+          BINARY_VERSION=$(./Devantler.K3dCLI/runtimes/linux-x64/native/flux-linux-x64 --version)
+          echo "BINARY_VERSION=$BINARY_VERSION" >> $GITHUB_ENV
       - name: ✍🏻 Create PR
         uses: peter-evans/create-pull-request@v7
         with:
-          commit-message: Update K3d binary
+          commit-message: Update K3d binary to ${{ env.BINARY_VERSION }}
           title: Update K3d binary
           body: |
-            This PR updates the K3d binary used by Devantler.AgeCLI to the latest version.
+            This PR updates the K3d binary used by Devantler.AgeCLI to ${{ env.BINARY_VERSION }}.
           branch: update-k3d-binary
           delete-branch: true
           labels: dependencies
