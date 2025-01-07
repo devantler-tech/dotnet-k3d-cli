@@ -19,6 +19,6 @@ public class RunAsyncTests
 
     // Assert
     Assert.Equal(0, exitCode);
-    Assert.Matches(@"^k3d version v\d+\.\d+\.\d+$", message.Trim().Split('\n')[0]);
+    Assert.Matches(@"^k3d version v\d+\.\d+\.\d+$", message.Split(Environment.NewLine).First().Trim());
   }
 }
