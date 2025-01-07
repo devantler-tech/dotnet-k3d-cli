@@ -66,7 +66,7 @@ public static class K3d
   /// <param name="clusterName"></param>
   /// <param name="configPath"></param>
   /// <param name="cancellationToken"></param>
-  [Obsolete("This method is obsolete. Use RunAsync instead.")]
+  [Obsolete("This method is deprecated. Use RunAsync instead.")]
   public static async Task CreateClusterAsync(string clusterName, string configPath, CancellationToken cancellationToken = default)
   {
     var cmd = Command.WithArguments(
@@ -96,7 +96,7 @@ public static class K3d
   /// </summary>
   /// <param name="clusterName"></param>
   /// <param name="cancellationToken"></param>
-  [Obsolete("This method is obsolete. Use RunAsync instead.")]
+  [Obsolete("This method is deprecated. Use RunAsync instead.")]
   public static async Task StartClusterAsync(string clusterName, CancellationToken cancellationToken = default)
   {
     var cmd = Command.WithArguments($"cluster start {clusterName}");
@@ -119,7 +119,7 @@ public static class K3d
   /// </summary>
   /// <param name="clusterName"></param>
   /// <param name="cancellationToken"></param>
-  [Obsolete("This method is obsolete. Use RunAsync instead.")]
+  [Obsolete("This method is deprecated. Use RunAsync instead.")]
   public static async Task StopClusterAsync(string clusterName, CancellationToken cancellationToken = default)
   {
     var cmd = Command.WithArguments($"cluster stop {clusterName}");
@@ -142,7 +142,7 @@ public static class K3d
   /// </summary>
   /// <param name="clusterName"></param>
   /// <param name="cancellationToken"></param>
-  [Obsolete("This method is obsolete. Use RunAsync instead.")]
+  [Obsolete("This method is deprecated. Use RunAsync instead.")]
   public static async Task DeleteClusterAsync(string clusterName, CancellationToken cancellationToken = default)
   {
     var cmd = Command.WithArguments($"cluster delete {clusterName}");
@@ -165,7 +165,7 @@ public static class K3d
   /// </summary>
   /// <param name="clusterName"></param>
   /// <param name="cancellationToken"></param>
-  [Obsolete("This method is obsolete. Use RunAsync instead.")]
+  [Obsolete("This method is deprecated. Use RunAsync instead.")]
   public static async Task<bool> GetClusterAsync(string clusterName, CancellationToken cancellationToken = default)
   {
     var cmd = Command.WithArguments($"cluster get {clusterName}").WithValidation(CommandResultValidation.None);
@@ -184,7 +184,7 @@ public static class K3d
   /// Lists all k3d clusters.
   /// </summary>
   /// <param name="cancellationToken"></param>
-  [Obsolete("This method is obsolete. Use RunAsync instead.")]
+  [Obsolete("This method is deprecated. Use RunAsync instead.")]
   public static async Task<string[]> ListClustersAsync(CancellationToken cancellationToken = default)
   {
     var cmd = Command.WithArguments("cluster list");
