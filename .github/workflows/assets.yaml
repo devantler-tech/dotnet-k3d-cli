@@ -21,7 +21,7 @@ jobs:
           private_key: ${{ secrets.APP_PRIVATE_KEY }}
       - name: 🎯 Get version
         run: |
-          BINARY_VERSION=$(./Devantler.K3dCLI/runtimes/linux-x64/native/flux-linux-x64 --version)
+          BINARY_VERSION=$(./Devantler.K3dCLI/runtimes/linux-x64/native/k3d-linux-x64 --version)
           echo "BINARY_VERSION=$BINARY_VERSION" >> $GITHUB_ENV
       - name: ✍🏻 Create PR
         uses: peter-evans/create-pull-request@v7
