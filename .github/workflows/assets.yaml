@@ -29,7 +29,7 @@ jobs:
           commit-message: Update K3d binary to ${{ env.BINARY_VERSION }}
           title: Update K3d binary
           body: |
-            This PR updates the K3d binary used by Devantler.AgeCLI to ${{ env.BINARY_VERSION }}.
+            This PR updates the K3d binary used by Devantler.K3dCLI to ${{ env.BINARY_VERSION }}.
           branch: update-k3d-binary
           delete-branch: true
           labels: dependencies
