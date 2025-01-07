@@ -26,10 +26,9 @@
 │       └── win-x64
 │           └── native
 └── Devantler.K3dCLI.Tests
-    ├── K3dTests
-    └── assets
+    └── K3dTests
 
-18 directories
+17 directories
 ```
 <!-- readme-tree end -->
 
