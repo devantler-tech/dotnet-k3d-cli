@@ -8,7 +8,6 @@
   <summary>Show/hide folder structure</summary>
 
 <!-- readme-tree start -->
-
 ```
 .
 ├── .github
@@ -32,7 +31,6 @@
 
 18 directories
 ```
-
 <!-- readme-tree end -->
 
 </details>
