@@ -27,7 +27,7 @@ jobs:
         uses: peter-evans/create-pull-request@v7
         with:
           commit-message: Update K3d binary to ${{ env.BINARY_VERSION }}
-          title: Update K3d binary
+          title: Update K3d to ${{ env.BINARY_VERSION }}
           body: |
             This PR updates the K3d binary used by Devantler.K3dCLI to ${{ env.BINARY_VERSION }}.
           branch: update-k3d-binary
