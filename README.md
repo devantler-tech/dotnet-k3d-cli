@@ -51,5 +51,5 @@ You can execute the K3d CLI commands using the `K3d` class.
 ```csharp
 using Devantler.K3dCLI;
 
-var (exitCode, message) = await K3d.RunAsync(["arg1", "arg2"]);
+var (exitCode, output) = await K3d.RunAsync(["arg1", "arg2"]);
 ```

@@ -15,10 +15,10 @@ public class RunAsyncTests
   public async Task RunAsync_Version_ReturnsVersion()
   {
     // Act
-    var (exitCode, message) = await K3d.RunAsync(["--version"]);
+    var (exitCode, output) = await K3d.RunAsync(["--version"]);
 
     // Assert
     Assert.Equal(0, exitCode);
-    Assert.Matches(@"^k3d version v\d+\.\d+\.\d+$", message.Split(Environment.NewLine).First().Trim());
+    Assert.Matches(@"^k3d version v\d+\.\d+\.\d+$", output.Split(Environment.NewLine).First().Trim());
   }
 }
