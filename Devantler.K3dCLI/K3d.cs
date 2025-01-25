@@ -1,6 +1,5 @@
 using System.Runtime.InteropServices;
 using CliWrap;
-using CliWrap.Exceptions;
 using Devantler.CLIRunner;
 
 namespace Devantler.K3dCLI;
