@@ -192,8 +192,8 @@ public static class K3d
     {
       var (_, result) = await CLI.RunAsync(cmd, cancellationToken: cancellationToken).ConfigureAwait(false);
       string[] lines = result.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
-      string[] clusterLines = lines.Skip(1).ToArray();
-      string[] clusterNames = clusterLines.Select(line => line.Split(' ', StringSplitOptions.RemoveEmptyEntries).First()).ToArray();
+      string[] clusterLines = [.. lines.Skip(1)];
+      string[] clusterNames = [.. clusterLines.Select(line => line.Split(' ', StringSplitOptions.RemoveEmptyEntries).First())];
       return clusterNames;
     }
     catch (CommandExecutionException ex)
